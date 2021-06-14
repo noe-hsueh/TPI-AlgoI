@@ -2,6 +2,8 @@
 #include "ejercicios.h"
 #include "auxiliares.h"
 
+bool alMoverQuedaEnJaque(const posicion &pair);
+
 // EJERCICIO 1
 bool posicionValida ( pair < tablero, int > const &p ) {
     bool resp = false;
@@ -53,10 +55,9 @@ bool finDeLaPartida ( posicion const &p, int &j ) {
 
 // EJERCICIO 7
 bool hayJaqueDescubierto(posicion const &p) {
-        bool resp = false;
-        // completar codigo
-        return resp;
+        return alMoverQuedaEnJaque(p);
 }
+
 // EJERCICIO 8
 void ejecutarSecuenciaForzada(posicion &p, secuencia s) {
     // completar codigo

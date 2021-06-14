@@ -577,6 +577,40 @@ bool esJaqueMate(const posicion& p){
     return  jugadorEnJaque(p,jugador) && !existeMovimientosParaSalirDelJaque(p) ;
 }
 
+//// EJERCICIO 7 ////
+
+bool alMoverQuedaEnJaqueDestino(const posicion &p, coordenada& o) {
+    bool res= false;
+    for (int i = 0; i < ANCHO_TABLERO; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO; ++j) {
+            coordenada d = setCoord(i,j);
+            if (esMovimientoValido(p,o,d) || esCapturaValida(p,o,d)){
+                posicion q = p;
+                moverPieza(q, o, d);
+                res = res || jugadorEnJaque(q, q.second);
+            }
+        }
+    }
+    return res;
+}
+
+bool alMoverQuedaEnJaque(const posicion &p) {
+    bool res = false;
+    for (int i = 0; i < ANCHO_TABLERO; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO; ++j) {
+            coordenada o = setCoord(i,j);
+            if (color(p,o) == jugador(p)){
+                res = res || alMoverQuedaEnJaqueDestino(p,o);
+            }
+        }
+    }
+    return res;
+}
+
+
+
+
+
 
 ///////////////////////////////////////////////////
 

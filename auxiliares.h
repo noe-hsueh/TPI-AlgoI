@@ -35,6 +35,11 @@ bool esJaqueMate(const posicion& p);
 bool loPoneEnJaque(const posicion &p, coordenada &o, coordenada &d);
 bool esJugadaLegal(const posicion& p, coordenada& o, coordenada& d);
 bool tieneJugadaLegal(const posicion &p, coordenada o);
+//// Ejercicio 7
+bool alMoverQuedaEnJaque(const posicion &pair);
+
+
+
 
 //////////////////////////////////////////////////////
 
