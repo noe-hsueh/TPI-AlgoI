@@ -481,8 +481,8 @@ bool hayMovimientosLegales(const posicion &p) {
     int cantMovimientosLegales = 0;
     for(int i = 0; i<t.size(); i++) {
         for (int j = 0; j < t[0].size(); j++) {
-            if(t[i][j] != cVACIA){
-                o = setCoord(i,j);
+            o = setCoord(i,j);
+            if(t[i][j] != cVACIA && color(p,o)== jugador(p) ){
                 for(int a = 0; a<t.size(); a++){
                     for(int b = 0; b<t[0].size(); b++){
                         d = setCoord(a,b);
