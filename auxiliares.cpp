@@ -520,7 +520,6 @@ void swapear_piezas(tablero& t, coordenada &o, coordenada &d) {
 }
 
 
-
 void moverPieza(posicion &p, coordenada &o, coordenada &d) {
     p.second= contrincante(jugador(p));
     if (casillaVacia(p.first[d.first][d.second])){
@@ -607,8 +606,36 @@ bool alMoverQuedaEnJaque(const posicion &p) {
     return res;
 }
 
+coordenada destino_forzado(posicion &p, coordenada& o) {
+    coordenada res=o;
+    for (int i = 0; i < ANCHO_TABLERO; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO; ++j) {
+            coordenada d = setCoord(i,j);
+            if (esJugadaLegal(p,o,d)){
+                res=d;
+                return res;
+            }
+        }
+    }
+    return res;
+}
 
-
+//// EJERCICIO 7 ////
+void moverPiezaForzada(posicion &p) {
+    bool seMovio = false;
+    for (int i = 0; i < ANCHO_TABLERO && !seMovio; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO && !seMovio; ++j) {
+            coordenada o = setCoord(i,j);
+            if (color(p,o)== jugador(p)){
+                coordenada d = destino_forzado(p,o);
+                if (o!=d){
+                    moverPieza(p,o,d);
+                    seMovio= true;
+                }
+            }
+        }
+    }
+}
 
 
 

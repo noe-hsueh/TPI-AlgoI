@@ -60,8 +60,10 @@ bool hayJaqueDescubierto(posicion const &p) {
 
 // EJERCICIO 8
 void ejecutarSecuenciaForzada(posicion &p, secuencia s) {
-    // completar codigo
-    return;
+    for (int i = 0; i < s.size(); ++i) {
+        moverPieza(p,s[i].first,s[i].second);
+        moverPiezaForzada(p);
+    }
 }
 // EJERCICIO 9
 int seVieneElJaqueEn(posicion const &p) {
