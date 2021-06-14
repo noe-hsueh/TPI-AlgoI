@@ -93,3 +93,22 @@ TEST(finDeLaPartidaTEST, esEmpate_mateAhogado){
     EXPECT_TRUE(finDeLaPartida(p,j));
     EXPECT_EQ(j, 0);
 }
+
+TEST(finDeLaPartidaTEST, esEmpate_mateAhogado2){
+    tablero t = {	// mateAhogado 2
+                // imagen : https://es.wikipedia.org/wiki/Ahogado_(ajedrez)
+            {cVACIA,   cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA,   cTORRE_B, cVACIA, cVACIA, cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA,   cVACIA,   cVACIA, cVACIA, cREY_N, cPEON_B, cVACIA, cVACIA},
+            {cTORRE_B, cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA, cPEON_B, cVACIA},
+            {cVACIA,   cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA,   cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA,   cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA,   cVACIA,   cVACIA, cTORRE_B, cVACIA, cVACIA, cREY_B, cVACIA},
+    };
+    posicion p = make_pair(t,NEGRO);
+    int j;
+
+    EXPECT_TRUE(finDeLaPartida(p,j));
+    EXPECT_EQ(j, 0);
+}
