@@ -23,6 +23,23 @@ TEST(finDeLaPartidaTEST, partidaNoFinalizada){
     EXPECT_FALSE(finDeLaPartida(p,j));
 }
 
+TEST(finDeLaPartidaTEST, partidaNoFinalizada2){
+    tablero t = {	// En jaque pero con movidas legales
+            {cREY_N, cVACIA, cVACIA, cTORRE_N, cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA, cVACIA, cVACIA, cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA, cVACIA, cVACIA, cVACIA,   cVACIA, cALFIL_B, cVACIA, cVACIA},
+            {cVACIA, cVACIA, cVACIA, cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA, cVACIA, cVACIA, cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA, cVACIA, cVACIA, cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA, cVACIA, cVACIA, cVACIA,   cVACIA, cVACIA, cVACIA, cVACIA},
+            {cVACIA, cVACIA, cVACIA, cREY_B,   cVACIA, cVACIA, cVACIA, cVACIA},
+    };
+    posicion p = make_pair(t,BLANCO);
+    int j;
+
+    EXPECT_FALSE(finDeLaPartida(p,j));
+}
+
 TEST(finDeLaPartidaTEST, jaqueMate){
 	tablero t = {	// Figura 4a del enunciado del TPE
             {cVACIA, cVACIA, cVACIA, cVACIA, cTORRE_B, cVACIA, cVACIA, cREY_N},
