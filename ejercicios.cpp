@@ -2,8 +2,6 @@
 #include "ejercicios.h"
 #include "auxiliares.h"
 
-bool alMoverQuedaEnJaque(const posicion &pair);
-
 // EJERCICIO 1
 bool posicionValida ( pair < tablero, int > const &p ) {
     bool resp = false;
@@ -17,7 +15,7 @@ bool posicionInicial ( posicion const &p ) {
     resp = piezasEnCoordenadas(tableroActual(p)) && cantidadPiezasAlInicio(tableroActual(p)) && jugador(p) == BLANCO;
     return resp;
 }
-// EJERCICIO 3    -- FALTA AGREGAR OBSTACULOS
+// EJERCICIO 3
 vector <coordenada> casillasAtacadas ( posicion const &p, int j ) {
     vector <coordenada> cA;
     return sonCasillasAtacadas(p,j,cA);
@@ -65,9 +63,17 @@ void ejecutarSecuenciaForzada(posicion &p, secuencia s) {
         moverPiezaForzada(p);
     }
 }
+
 // EJERCICIO 9
 int seVieneElJaqueEn(posicion const &p) {
     int resp = -1;
-    // completar codigo
+    int i=1;
+    while (i<4){
+        if(hayMateForzadoEn(p,i)){
+            resp = i;
+            break;
+        }
+        i++;
+    }
     return resp;
 }

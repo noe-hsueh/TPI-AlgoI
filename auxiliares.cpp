@@ -620,7 +620,7 @@ coordenada destino_forzado(posicion &p, coordenada& o) {
     return res;
 }
 
-//// EJERCICIO 7 ////
+//// EJERCICIO 8 ////
 void moverPiezaForzada(posicion &p) {
     bool seMovio = false;
     for (int i = 0; i < ANCHO_TABLERO && !seMovio; ++i) {
@@ -637,6 +637,116 @@ void moverPiezaForzada(posicion &p) {
     }
 }
 
+//// EJERCICIO 9 ////
+
+vector<coordenada> coordenadasDePiezasMovibles(const posicion &p) {
+    vector<coordenada> res;
+    for (int i = 0; i < ANCHO_TABLERO; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO; ++j) {
+            coordenada c = setCoord(i,j);
+            if (color(p,c)== jugador(p) && tieneJugadaLegal(p,c)){
+                res.push_back(c);
+            }
+        }
+    }
+    return res;
+}
+
+//bool unicaMovidaPosible(posicion &p, coordenada c) {
+//    int cant_movidaPosible = 0;
+//    for (int i = 0; i < ANCHO_TABLERO; ++i) {
+//        for (int j = 0; j < ANCHO_TABLERO; ++j) {
+//            coordenada d = setCoord(i,j);
+//            if (esJugadaLegal(p,c, d)){
+//                cant_movidaPosible++;
+//            }
+//        }
+//    }
+//    return cant_movidaPosible==1;
+//}
+
+bool unicaMovidaPosible(posicion &p) {
+    int cant_movPosible = 0;
+    for (int i = 0; i < ANCHO_TABLERO; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO; ++j) {
+            coordenada c = setCoord(i,j);
+            if (color(p, c)== jugador(p)){
+                for (int k = 0; k < ANCHO_TABLERO; ++k) {
+                    for (int l = 0; l < ANCHO_TABLERO; ++l) {
+                        coordenada d = setCoord(k,l);
+                        if (esJugadaLegal(p, c,d)){
+                            cant_movPosible ++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return cant_movPosible<=1;
+}
+
+bool esMovimientoForzado(const posicion& p, coordenada o, coordenada d){
+    posicion q=p;
+    bool res= false;
+    if (esJugadaLegal(q,o,d)){
+        moverPieza(q,o,d);
+        res = unicaMovidaPosible(q);
+//        for (int i = 0; i < ANCHO_TABLERO; ++i) {
+//            for (int j = 0; j < ANCHO_TABLERO; ++j) {
+//                coordenada o_c = setCoord(i,j);
+//                if (color(q,o_c)!= jugador(p)){
+//                    res = res && unicaMovidaPosible(q,o);
+//                }
+//            }
+//        }
+    }
+    return  res;
+}
+
+bool hayPosicionFinal(const posicion &p, coordenada o) {
+    bool res = false;
+    for (int i = 0; i < ANCHO_TABLERO && !res; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO && !res; ++j) {
+            coordenada d = setCoord(i,j);
+            if (esJugadaLegal(p,o,d)){
+                posicion q = p;
+                moverPieza(q,o,d);
+                res = esJaqueMate(q);
+            }
+        }
+    }
+    return res;
+}
+
+bool puedeForzarMateEn(posicion &p, coordenada &o, int k) {
+    bool res= false;
+    for (int i = 0; i < ANCHO_TABLERO && !res; ++i) {
+        for (int j = 0; j < ANCHO_TABLERO && !res ; ++j) {
+            coordenada d = setCoord(i,j);
+            if (d!=o && esMovimientoForzado(p, o, d)){
+                posicion q = p;
+                moverPieza(q,o,d);
+                if (k==1){
+                    res = esJaqueMate(q);
+                } else {
+                    moverPiezaForzada(q);
+                    res = hayMateForzadoEn(q, k-1);
+                }
+            }
+        }
+    }
+    return res;
+}
+
+bool hayMateForzadoEn(const posicion &p, int k) {
+    bool res= false;
+    vector<coordenada> piezas_movibles=coordenadasDePiezasMovibles(p);
+    for (int i = 0; i < piezas_movibles.size() && !res ; ++i) {
+        posicion q=p;
+        res = puedeForzarMateEn(q, piezas_movibles[i], k);
+    }
+    return res;
+}
 
 
 ///////////////////////////////////////////////////
